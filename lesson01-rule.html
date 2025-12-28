@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Arabic Alphabet Rules</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Comic Sans MS', cursive;
+}
+
+/* Background */
+body{
+    background:url("background.jpg") no-repeat;
+    background-size:100% 100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* White Board Mask (same as alphabet page) */
+.board-mask{
+    position:absolute;
+    top:18%;
+    left:18%;
+    width:76%;
+    height:64%;
+    padding:20px;
+    overflow:hidden;
+}
+
+/* Rules Container */
+.rules{
+    height:100%;
+    width: 970px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    justify-content:center;
+}
+
+/* Rule Card */
+.rule-card{
+    background:linear-gradient(135deg,#ffd54f,#ff9800);
+    border-radius:20px;
+    padding:20px 20px;
+    box-shadow:0 10px 0 #e0a800, 0 18px 25px rgba(0,0,0,0.25);
+    transition:0.3s;
+}
+
+.rule-card:hover{
+    transform:scale(1.02);
+    transform:scale(1.15) rotate(-3deg);
+    background:linear-gradient(135deg,#4dd0e1,#00acc1);
+    color:#00363d;
+}
+
+/* Rule Title */
+.rule-title{
+    font-size:24px;
+    font-weight:bold;
+    color:#5d3b00;
+    margin-bottom:10px;
+}
+
+/* Rule Text */
+.rule-text{
+    font-size:20px;
+    color:#3e2a00;
+    line-height:1.6;
+}
+
+/* Highlight letters */
+.letters{
+    font-size:26px;
+    font-weight:bold;
+    color:#8a2c00;
+    letter-spacing:6px;
+    margin-top:8px;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .rule-title{
+        font-size:20px;
+    }
+    .rule-text{
+        font-size:17px;
+    }
+    .letters{
+        font-size:22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="nav-left">
+        <img src="logo.png" alt="Logo">
+        <h1>Faizan Online Academy</h1>
+    </div>
+    <div class="nav-right">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+    <div class="dropdown-btn">Lessons ▼</div>
+    <div class="dropdown-content">
+
+        <div class="lesson-item">
+            <span>Lesson No 01</span>
+            <div class="lesson-buttons">
+                <a href="lesson01-rule.html">Rules</a>
+                <a href="lesson-01.html">Lesson</a>
+                <a href="lesson01-game.html">Exercise</a>
+            </div>
+        </div>
+
+        <div class="lesson-item">
+            <span>Lesson No 02</span>
+            <div class="lesson-buttons">
+                <a href="#">Rules</a>
+                <a href="#">Lesson</a>
+                <a href="#">Exercise</a>
+            </div>
+        </div>
+
+        <div class="lesson-item">
+            <span>Lesson No 03</span>
+            <div class="lesson-buttons">
+                <a href="#">Rules</a>
+                <a href="#">Lesson</a>
+                <a href="#">Exercise</a>
+            </div>
+        </div>
+
+        <!-- Repeat for Lessons 04 to 10 -->
+
+    </div>
+</div>
+
+        <a href="#" class="daily-challenge">Play Game</a>
+        <a href="#" class="daily-challenge">Daily Challenge</a>
+    </div>
+</div>
+
+<div class="board-mask">
+    <div class="rules">
+
+        <!-- RULE 1 -->
+        <div class="rule-card">
+            <div class="rule-title">Rule 01</div>
+            <div class="rule-text">
+                There are <strong>29 Mufridat (Arabic Alphabet) letters</strong> in the Arabic language.
+            </div>
+        </div>
+
+        <!-- RULE 2 -->
+        <div class="rule-card">
+            <div class="rule-title">Rule 02</div>
+            <div class="rule-text">
+                There are <strong>7 Musta’liyah letters</strong> and they are: <span class="letters">ق غ ظ ط ض ص خ</span>
+            </div>
+        </div>
+
+        <!-- RULE 3 -->
+        <div class="rule-card">
+            <div class="rule-title">Rule 03</div>
+            <div class="rule-text">
+                <strong>Musta’liyah letters</strong> are always pronounced with a
+                <strong>thicker and heavier voice</strong> in every condition.
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

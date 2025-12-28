@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Find Musta'liyah Letters</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Comic Sans MS', cursive;
+}
+
+/* ===== BACKGROUND ===== */
+body{
+    background:url("background.jpg") no-repeat;
+    background-size:100% 100%;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* ===== TOP CONTROLS ===== */
+.controls{
+    position:absolute;
+    top:20px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    z-index:5;
+    margin-top: 600px;
+}
+
+.controls button{
+    padding:10px 22px;
+    font-size:16px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#4dd0e1,#00acc1);
+    color:#00363d;
+    box-shadow:0 6px 0 #008c9e;
+}
+
+.controls button:active{
+    transform:translateY(4px);
+    box-shadow:0 2px 0 #008c9e;
+}
+
+/* ===== WHITE BOARD MASK ===== */
+.board-mask{
+    position:absolute;
+    top:18%;
+    left:12%;
+    width:76%;
+    height:64%;
+    padding:20px;
+    overflow:hidden;
+}
+
+/* ===== GRID ===== */
+.board{
+    height:100%;
+    display:grid;
+    grid-template-columns: repeat(6, max-content);
+    column-gap:20px;
+    row-gap:20px;
+    justify-content:center;
+    align-content:center;
+    direction: rtl;
+}
+
+/* ===== LETTER BOX ===== */
+.letter{
+    background:linear-gradient(135deg,#ffd54f,#ff9800);
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:42px;
+    font-weight:bold;
+    color:#4e2600;
+    box-shadow:0 8px 0 #d17a00, 0 15px 20px rgba(0,0,0,0.3);
+    animation: float 3s ease-in-out infinite;
+    transition:0.3s;
+    cursor:pointer;
+width: 130px;
+}
+.letter:hover{
+    transform:scale(1.15) rotate(-3deg);
+    background:linear-gradient(135deg,#4dd0e1,#00acc1);
+    color:#00363d;
+}
+
+/* Correct */
+.letter.correct{
+    background:linear-gradient(135deg,#66bb6a,#2e7d32);
+    color:#ffffff;
+    box-shadow:0 8px 0 #1b5e20;
+    pointer-events:none;
+}
+
+/* Wrong */
+.letter.wrong{
+    background:linear-gradient(135deg,#ef5350,#c62828);
+    color:#ffffff;
+    animation:shake 0.4s;
+}
+
+/* Shake */
+@keyframes shake{
+    0%{transform:translateX(0)}
+    25%{transform:translateX(-5px)}
+    50%{transform:translateX(5px)}
+    75%{transform:translateX(-5px)}
+    100%{transform:translateX(0)}
+}
+
+/* ===== POPUP ===== */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+
+.popup-box{
+    background:#fff3c4;
+    padding:30px 40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,0.4);
+}
+
+.popup-box h2{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.popup-box p{
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+.popup-box button{
+    padding:10px 25px;
+    border:none;
+    border-radius:20px;
+    font-size:16px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ffd54f,#ff9800);
+}
+/* Popup Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Popup Box */
+.popup-content {
+    background: linear-gradient(135deg,#ffca28,#ff7043);
+    padding: 30px 40px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    color: #4e2600;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 15px rgba(255,255,255,0.3);
+    animation: popUp 0.5s ease forwards;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff7043;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Start Button */
+.start-btn {
+    background: linear-gradient(135deg,#4dd0e1,#00acc1);
+    color: #00363d;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.start-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg,#00acc1,#4dd0e1);
+}
+
+/* Animations */
+@keyframes popUp {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+</style>
+</head>
+
+<body>
+<!-- Navbar -->
+<div class="navbar">
+    <div class="nav-left">
+        <img src="logo.png" alt="Logo">
+        <h1>Faizan Online Academy</h1>
+    </div>
+    <div class="nav-right">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+    <div class="dropdown-btn">Lessons ▼</div>
+    <div class="dropdown-content">
+
+        <div class="lesson-item">
+            <span>Lesson No 01</span>
+            <div class="lesson-buttons">
+                <a href="lesson01-rule.html">Rules</a>
+                <a href="lesson-01.html">Lesson</a>
+                <a href="lesson01-game.html">Exercise</a>
+            </div>
+        </div>
+
+        <div class="lesson-item">
+            <span>Lesson No 02</span>
+            <div class="lesson-buttons">
+                <a href="#">Rules</a>
+                <a href="#">Lesson</a>
+                <a href="#">Exercise</a>
+            </div>
+        </div>
+
+        <div class="lesson-item">
+            <span>Lesson No 03</span>
+            <div class="lesson-buttons">
+                <a href="#">Rules</a>
+                <a href="#">Lesson</a>
+                <a href="#">Exercise</a>
+            </div>
+        </div>
+
+        <!-- Repeat for Lessons 04 to 10 -->
+
+    </div>
+</div>
+
+        <a href="#" class="daily-challenge">Play Game</a>
+        <a href="#" class="daily-challenge">Daily Challenge</a>
+    </div>
+</div>
+
+<!-- TOP BUTTONS -->
+<div class="controls">
+    <button onclick="startGame()">▶ Start</button>
+    <button id="pauseBtn" onclick="togglePause()">⏸ Pause</button>
+    <button onclick="replayGame()">🔄 Replay</button>
+    <div id="timer" style="
+    padding:10px 18px;
+    background:linear-gradient(135deg,#ffd54f,#ff9800);
+    border-radius:20px;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:0 6px 0 #d17a00;
+">
+    ⏱ Time: <span id="time">00:00</span>
+</div>
+</div>
+
+<!-- GAME BOARD -->
+<div class="board-mask">
+    <div class="board" id="board"></div>
+</div>
+
+<!-- RESULT POPUP -->
+<div class="popup" id="popup">
+    <div class="popup-box">
+        <h2>🎉 Well Done!</h2>
+        <p>You found <span id="score"></span> / 7 Musta’liyah letters</p>
+        <button onclick="replayGame()">Play Again</button>
+    </div>
+</div>
+<!-- Game Popup -->
+<div id="game-popup" class="popup-overlay">
+    <div class="popup-content">
+        <button class="close-btn" onclick="closePopup()">✖</button>
+        <h2>Fun Musta’liyah Letters Game!</h2>
+        <p>Find Or Match Musta’liyah Letters You Have Learnt In Previous Lesson !</p>
+        <button class="start-btn" onclick="closePopup()">Start Game 🎮</button>
+    </div>
+</div>
+
+<script>
+/* =========================
+   GAME DATA
+========================= */
+const letters = [
+  "ا","ب","ت","ث","ج","ح","خ","د","ذ","ر",
+  "ز","س","ش","ص","ض","ط","ظ","ع","غ","ف",
+  "ق","ك","ل","م","ن","و","ه","ء","ي"
+];
+
+const mustaliyah = ["ق","غ","ظ","ط","ض","ص","خ"];
+
+/* =========================
+   GAME STATE
+========================= */
+let found = 0;
+let paused = true;
+
+/* ===== TIMER ===== */
+let time = 0;
+let timerInterval = null;
+
+/* =========================
+   ELEMENTS
+========================= */
+const board = document.getElementById("board");
+const popup = document.getElementById("popup");
+const scoreEl = document.getElementById("score");
+const timeEl = document.getElementById("time");
+const pauseBtn = document.getElementById("pauseBtn");
+
+/* =========================
+   TIMER FUNCTIONS
+========================= */
+function startTimer(){
+    if (timerInterval) return;
+
+    timerInterval = setInterval(() => {
+        time++;
+        updateTimerUI();
+    }, 1000);
+}
+
+function stopTimer(){
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+function updateTimerUI(){
+    const minutes = String(Math.floor(time / 60)).padStart(2, "0");
+    const seconds = String(time % 60).padStart(2, "0");
+    timeEl.innerText = `${minutes}:${seconds}`;
+}
+
+/* =========================
+   GAME BOARD
+========================= */
+function loadBoard(){
+    board.innerHTML = "";
+
+    letters.forEach(letter => {
+        const box = document.createElement("div");
+        box.className = "letter";
+        box.innerText = letter;
+
+        box.onclick = () => {
+            if (paused) return;
+
+            if (mustaliyah.includes(letter)) {
+                if (!box.classList.contains("correct")) {
+                    box.classList.add("correct");
+                    found++;
+
+                    if (found === mustaliyah.length) {
+                        endGame();
+                    }
+                }
+            } else {
+                box.classList.add("wrong");
+                setTimeout(() => box.classList.remove("wrong"), 400);
+            }
+        };
+
+        board.appendChild(box);
+    });
+}
+
+/* =========================
+   GAME CONTROLS
+========================= */
+function startGame(){
+    paused = false;
+    startTimer();
+}
+
+function togglePause(){
+    if (paused) {
+        paused = false;
+        pauseBtn.innerText = "⏸ Pause";
+        startTimer();
+    } else {
+        paused = true;
+        pauseBtn.innerText = "▶ Resume";
+        stopTimer();
+    }
+}
+
+function replayGame(){
+    found = 0;
+    paused = true;
+    time = 0;
+
+    stopTimer();
+    updateTimerUI();
+
+    popup.style.display = "none";
+    pauseBtn.innerText = "⏸ Pause";
+
+    loadBoard();
+}
+
+function endGame(){
+    paused = true;
+    stopTimer();
+
+    scoreEl.innerText = found;
+    popup.style.display = "flex";
+}
+
+/* =========================
+   INIT
+========================= */
+updateTimerUI();
+loadBoard();
+// Show popup on page load
+window.onload = function() {
+    document.getElementById('game-popup').style.display = 'flex';
+}
+
+// Close popup function
+function closePopup() {
+    document.getElementById('game-popup').style.display = 'none';
+}
+
+</script>
+
+
+</body>
+</html>

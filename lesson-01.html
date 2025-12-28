@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Lesson No 01</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg,#4dd0e1,#00acc1);
+    padding: 12px 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    border-radius: 0 0 15px 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-left img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #00363d;
+}
+
+.nav-left h1 {
+    font-size: 24px;
+    color: #00363d;
+    margin-left: 5px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-right a, .dropdown-btn {
+    text-decoration: none;
+    color: #00363d;
+    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.nav-right a:hover, .dropdown-btn:hover {
+    background: #ffd54f;
+    color: #4e2600;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    background: #fff3e0;
+    min-width: 140px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 8px 12px;
+    color: #4e2600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover {
+    background: #ffcc80;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+ /* Daily Challange Button */
+ /* Daily Challenge / Game Button Styling */
+.daily-challenge {
+    background: linear-gradient(135deg, #ff7043, #ffca28); /* Vibrant gradient */
+    color: #4e2600;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 6px 0 #d17a00, 0 8px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Animation */
+.daily-challenge:hover {
+    transform: scale(1.2) rotate(-2deg);
+    box-shadow: 0 4px 0 #d17a00, 0 12px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #ffca28, #ff7043); /* Reverse gradient */
+}
+
+/* Optional pulse effect */
+.daily-challenge::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.15);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+}
+
+.daily-challenge:hover::after {
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+}
+
+/* Full Screen Background */
+body{
+    background:url("background.jpg") no-repeat;
+    background-size:100% 100%;
+    height:100vh;
+    overflow:hidden;}
+
+/* ==== Lesson Title ==== */
+.div-title {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 20px;
+}
+
+.title-lesson {
+    padding:10px 22px;
+    width: 450px;
+    font-size:30px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#4dd0e1,#00acc1);
+    color:#00363d;
+    box-shadow:0 6px 0 #008c9e;
+}
+
+/* ===== BOARD MASK AREA ===== */
+.board-mask{
+    position:absolute;
+    top:18%;
+    left:12%;
+    width:76%;
+    height:64%;
+    overflow:hidden;
+    padding:25px;
+}
+
+/* Grid inside board */
+.board{
+    width:100%;
+    height:100%;
+    display:grid;
+    grid-template-columns: repeat(6, max-content);
+    column-gap:20px;
+    row-gap:20px;
+    justify-content:center;
+    align-content:center;
+    direction: rtl;
+}
+
+/* Letter Box */
+.letter{
+    background:linear-gradient(135deg,#ffd54f,#ff9800);
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:42px;
+    font-weight:bold;
+    color:#4e2600;
+    box-shadow:0 8px 0 #d17a00, 0 15px 20px rgba(0,0,0,0.3);
+    animation: float 3s ease-in-out infinite;
+    transition:0.3s;
+    cursor:pointer;
+    width: 130px;
+}
+
+.letter:hover{
+    transform:scale(1.15) rotate(-3deg);
+    background:linear-gradient(135deg,#4dd0e1,#00acc1);
+    color:#00363d;
+}
+/* Rule Button / Game Button Styling */
+.my-button {
+    background: linear-gradient(135deg, #ff7043, #ffca28); /* Vibrant gradient */
+    color: #4e2600;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 6px 0 #d17a00, 0 8px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Animation */
+.my-button:hover {
+    transform: scale(1.2) rotate(-2deg);
+    box-shadow: 0 4px 0 #d17a00, 0 12px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #ffca28, #ff7043); /* Reverse gradient */
+}
+/* ===== POPUP ===== */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+
+.popup-box{
+    background:#fff3c4;
+    padding:30px 40px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 15px 30px rgba(0,0,0,0.4);
+}
+
+.popup-box h2{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.popup-box p{
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+.popup-box button{
+    padding:10px 25px;
+    border:none;
+    border-radius:20px;
+    font-size:16px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ffd54f,#ff9800);
+}
+/* Popup Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* Popup Box */
+.popup-content {
+    background: linear-gradient(135deg,#ffca28,#ff7043);
+    padding: 30px 40px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    color: #4e2600;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 15px rgba(255,255,255,0.3);
+    animation: popUp 0.5s ease forwards;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff7043;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Start Button */
+.start-btn {
+    background: linear-gradient(135deg,#4dd0e1,#00acc1);
+    color: #00363d;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.start-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg,#00acc1,#4dd0e1);
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .board{
+        grid-template-columns: repeat(5, 1fr);
+    }
+    .letter{
+        font-size:32px;
+    }
+    .nav-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="nav-left">
+        <img src="logo.png" alt="Logo">
+        <h1>Faizan Online Academy</h1>
+    </div>
+    <div class="nav-right">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+    <div class="dropdown-btn">Lessons ▼</div>
+    <div class="dropdown-content">
+
+        <div class="lesson-item">
+            <span>Lesson No 01</span>
+            <div class="lesson-buttons">
+                <a href="lesson01-rule.html">Rules</a>
+                <a href="lesson-01.html">Lesson</a>
+                <a href="lesson01-game.html">Exercise</a>
+            </div>
+        </div>
+
+        <div class="lesson-item">
+            <span>Lesson No 02</span>
+            <div class="lesson-buttons">
+                <a href="#">Rules</a>
+                <a href="#">Lesson</a>
+                <a href="#">Exercise</a>
+            </div>
+        </div>
+
+        <div class="lesson-item">
+            <span>Lesson No 03</span>
+            <div class="lesson-buttons">
+                <a href="#">Rules</a>
+                <a href="#">Lesson</a>
+                <a href="#">Exercise</a>
+            </div>
+        </div>
+
+        <!-- Repeat for Lessons 04 to 10 -->
+
+    </div>
+</div>
+
+        <a href="#" class="daily-challenge">Play Game</a>
+        <a href="#" class="daily-challenge">Daily Challenge</a>
+    </div>
+</div>
+
+
+
+
+<!-- MASKED BOARD AREA -->
+<div class="board-mask">
+    <div class="board">
+        <!-- 29 Arabic Alphabets -->
+        <div class="letter">ا</div>
+        <div class="letter">ب</div>
+        <div class="letter">ت</div>
+        <div class="letter">ث</div>
+        <div class="letter">ج</div>
+        <div class="letter">ح</div>
+        <div class="letter">خ</div>
+        <div class="letter">د</div>
+        <div class="letter">ذ</div>
+        <div class="letter">ر</div>
+        <div class="letter">ز</div>
+        <div class="letter">س</div>
+        <div class="letter">ش</div>
+        <div class="letter">ص</div>
+        <div class="letter">ض</div>
+        <div class="letter">ط</div>
+        <div class="letter">ظ</div>
+        <div class="letter">ع</div>
+        <div class="letter">غ</div>
+        <div class="letter">ف</div>
+        <div class="letter">ق</div>
+        <div class="letter">ك</div>
+        <div class="letter">ل</div>
+        <div class="letter">م</div>
+        <div class="letter">ن</div>
+        <div class="letter">و</div>
+        <div class="letter">ه</div>
+        <div class="letter">ء</div>
+        <div class="letter">ي</div>
+    </div>
+</div>
+<!-- Game Popup -->
+<div id="game-popup" class="popup-overlay">
+    <div class="popup-content">
+        <button class="close-btn" onclick="closePopup()">✖</button>
+        <h2>Enjoy Learning Lesson No 01!</h2>
+        <p>Click On The Letter To Listend Its Pronunciation And Sound !</p>
+        <button class="start-btn" onclick="closePopup()">Start Learning</button>
+    </div>
+</div>
+<script>
+/* ================================
+   STEP 1: AUDIO LINKS
+================================ */
+const audioData = {
+    "ا": "https://audio.jukehost.co.uk/tYIDGmGuBP1rJLswEPmNDjHMXfGsLGdx",
+    "ب": "https://audio.jukehost.co.uk/Msegx9Ys5CJK4ASAHBxE1a6PEjwG4pKP",
+    "ت": "https://audio.jukehost.co.uk/aTj1bS4AnZZ4jnJpbPUPnJdpkP2DRWmE",
+    "ث": "https://audio.jukehost.co.uk/tXOwLxqQwxkUNqBKnmU95DSvN7v7yg3S",
+    "ج": "",
+    "ح": "",
+    "خ": "",
+    "د": "",
+    "ذ": "",
+    "ر": "",
+    "ز": "",
+    "س": "",
+    "ش": "",
+    "ص": "",
+    "ض": "",
+    "ط": "",
+    "ظ": "",
+    "ع": "",
+    "غ": "",
+    "ف": "",
+    "ق": "",
+    "ك": "",
+    "ل": "",
+    "م": "",
+    "ن": "",
+    "و": "",
+    "ه": "",
+    "ء": "",
+    "ي": ""
+};
+
+/* ================================
+   STEP 2: SINGLE AUDIO PLAYER
+================================ */
+let currentAudio = null;
+
+function playLetterSound(letter) {
+    const soundUrl = audioData[letter];
+
+    if (!soundUrl) {
+        console.log("No audio for:", letter);
+        return;
+    }
+
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+
+    currentAudio = new Audio(soundUrl);
+    currentAudio.play().catch(err => {
+        console.log("Audio blocked:", letter);
+    });
+}
+
+/* ================================
+   STEP 3: ATTACH CLICK EVENTS
+================================ */
+document.querySelectorAll('.letter').forEach(box => {
+    box.addEventListener('click', () => {
+        const letter = box.innerText.trim();
+        playLetterSound(letter);
+
+        // Tap animation
+        box.style.transform = "scale(0.9)";
+        setTimeout(() => {
+            box.style.transform = "";
+        }, 120);
+    });
+});
+// Show popup on page load
+window.onload = function() {
+    document.getElementById('game-popup').style.display = 'flex';
+}
+
+// Close popup function
+function closePopup() {
+    document.getElementById('game-popup').style.display = 'none';
+}
+
+</script>
+
+</body>
+</html>

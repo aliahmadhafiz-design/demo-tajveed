@@ -1,0 +1,273 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg,#4dd0e1,#00acc1);
+    padding: 12px 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-left img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #00363d;
+}
+
+.nav-left h1 {
+    font-size: 24px;
+    color: #00363d;
+    margin-left: 5px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-right a, .dropdown-btn {
+    text-decoration: none;
+    color: #00363d;
+    font-weight: bold;
+    padding: 8px 14px;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.nav-right a:hover, .dropdown-btn:hover {
+    background: #ffd54f;
+    color: #4e2600;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    background: #fff3e0;
+    min-width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    overflow: hidden;
+    z-index: 1000;
+    padding: 10px;
+}
+
+/* Each Lesson Item */
+.lesson-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+/* Lesson Name */
+.lesson-item span {
+    font-weight: bold;
+    color: #4e2600;
+    padding: 5px 8px;
+}
+
+/* Buttons Container */
+.lesson-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+/* Buttons Style */
+.lesson-buttons a {
+    text-decoration: none;
+    background: linear-gradient(135deg,#ff7043,#ffca28);
+    color: #4e2600;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.3s;
+    display: inline-block;
+}
+
+.lesson-buttons a:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg,#ffca28,#ff7043);
+}
+
+
+.dropdown-content a:hover {
+    background: #ffcc80;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+/* Daily Challenge / Game Button Styling */
+.daily-challenge {
+    background: linear-gradient(135deg, #ff7043, #ffca28); /* Vibrant gradient */
+    color: #4e2600;
+    font-weight: bold;
+    padding: 10px 18px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 6px 0 #d17a00, 0 8px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Animation */
+.daily-challenge:hover {
+    transform: scale(1.2) rotate(-2deg);
+    box-shadow: 0 4px 0 #d17a00, 0 12px 20px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #ffca28, #ff7043); /* Reverse gradient */
+}
+
+/* ===== Hero Section ===== */
+.hero {
+    height: 80vh;
+    background-image: url("hero-section.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #4e2600;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+.hero p {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.hero button {
+    background: linear-gradient(135deg,#ff7043,#ffca28);
+    color: #4e2600;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 6px 0 #d17a00, 0 8px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background 0.3s;
+}
+
+.hero button:hover {
+    transform: scale(1.1) rotate(-2deg);
+    background: linear-gradient(135deg,#ffca28,#ff7043);
+}
+/* ===== Lessons Section ===== */
+.lessons {
+    padding: 50px 10%;
+    background-image: url("card-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.lesson-card {
+    background: linear-gradient(135deg,#ffca28,#ff7043);
+    padding: 20px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4e2600;
+    box-shadow: 0 8px 0 #d17a00, 0 12px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+}
+
+.lesson-card:hover {
+    transform: scale(1.1) rotate(-3deg);
+    box-shadow: 0 6px 0 #d17a00, 0 16px 24px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg,#ff7043,#ffca28);
+}
+
+/* Buttons container */
+.button-group {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Links as buttons */
+.hmp-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    text-decoration: none; /* remove underline */
+    font-weight: bold;
+    color: #00363d;
+    background: linear-gradient(135deg,#4dd0e1,#00acc1);
+    box-shadow: 0 6px 0 #008c9e;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+}
+
+.hmp-button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg,#00acc1,#4dd0e1);
+}
+
+.hmp-button:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 #008c9e;
+}
+/* Mobile adjustments */
+@media(max-width:768px){
+    .hero h1 {
+        font-size: 40px;
+    }
+    .hero p {
+        font-size: 18px;
+    }
+    .hero button {
+        font-size: 18px;
+        padding: 12px 25px;
+    }
+}
