@@ -146,10 +146,19 @@
 
 /* Full Screen Background */
 body{
-    background:url("background.jpg") no-repeat;
-    background-size:100% 100%;
     height:100vh;
-    overflow:hidden;}
+    overflow:hidden;
+    margin: 0;
+    min-height: 100vh;
+    background: url("card-bg.jpg") no-repeat center center;
+    background-size: cover;
+}
+.main-wrapper{
+    min-height: calc(100vh - 90px); /* navbar height approx */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* ==== Lesson Title ==== */
 .div-title {
@@ -171,30 +180,21 @@ body{
     box-shadow:0 6px 0 #008c9e;
 }
 
-/* ===== BOARD MASK AREA ===== */
-.board-mask{
-    position:absolute;
-    top:18%;
-    left:12%;
-    width:76%;
-    height:64%;
-    overflow:hidden;
-    padding:25px;
-}
-
 /* Grid inside board */
-.board{
-    width:100%;
-    height:100%;
-    display:grid;
+.board {
+    width: 60%;
+    height: 500px;
+    display: grid;
     grid-template-columns: repeat(6, max-content);
-    column-gap:20px;
-    row-gap:20px;
-    justify-content:center;
-    align-content:center;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-content: center;
+    align-content: center;
     direction: rtl;
+    background-color: #e9e8e6;
+    border: 10px solid white;
+    border-radius: 20px;
 }
-
 /* Letter Box */
 .letter{
     background:linear-gradient(135deg,#ffd54f,#ff9800);
@@ -409,12 +409,8 @@ body{
         <a href="#" class="daily-challenge">Daily Challenge</a>
     </div>
 </div>
-
-
-
-
-<!-- MASKED BOARD AREA -->
-<div class="board-mask">
+ <!-- MASKED BOARD AREA -->
+<div class="main-wrapper">
     <div class="board">
         <!-- 29 Arabic Alphabets -->
         <div class="letter">ا</div>
@@ -447,7 +443,7 @@ body{
         <div class="letter">ء</div>
         <div class="letter">ي</div>
     </div>
-</div>
+    </div>
 <!-- Game Popup -->
 <div id="game-popup" class="popup-overlay">
     <div class="popup-content">
